@@ -1,3 +1,3 @@
-import ExpressionNote from './ExpressionNote'
-ExpressionNote.install = Vue => Vue.component(ExpressionNote.name, ExpressionNote);
-export default ExpressionNote
+import TransmoldNote from './TransmoldNote'
+TransmoldNote.install = Vue => Vue.component(TransmoldNote.name, TransmoldNote);
+export default TransmoldNote

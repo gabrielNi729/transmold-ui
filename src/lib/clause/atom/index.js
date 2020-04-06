@@ -1,3 +1,3 @@
-import ExpressionAtom from './ExpressionAtom'
-ExpressionAtom.install = Vue => Vue.component(ExpressionAtom.name, ExpressionAtom);
-export default ExpressionAtom
+import TransmoldAtom from './TransmoldAtom'
+TransmoldAtom.install = Vue => Vue.component(TransmoldAtom.name, TransmoldAtom);
+export default TransmoldAtom

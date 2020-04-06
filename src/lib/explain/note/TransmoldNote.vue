@@ -9,7 +9,7 @@
 <script>
     export default {
 
-        name: 'ExpressionNote',
+        name: 'TransmoldNote',
 
         data(){
             return {

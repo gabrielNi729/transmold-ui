@@ -38,7 +38,7 @@
     export default {
 
 
-        name: 'ExpressionAtom',
+        name: 'TransmoldAtom',
 
         components: {Subject, Predicate, Adverbial, Plain},
 
