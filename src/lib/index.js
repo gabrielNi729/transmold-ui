@@ -1,6 +1,6 @@
 import ExpressionAtom from './clause/atom/index.js'
 import ExpressionNote from './explain/note/index.js'
-
+import { OP, Operators, Types, DATUM, Metadata, Instance, Template, Parameter, Table, Field, Enum, i18n } from 'transmold'
 
 const components = [ExpressionAtom, ExpressionNote];
 
@@ -20,5 +20,17 @@ if (typeof window !== 'undefined' && window.Vue) {
 export {
   install,
   ExpressionAtom,
-  ExpressionNote
+  ExpressionNote,
+  OP,
+  Operators,
+  Types,
+  DATUM,
+  Metadata,
+  Instance,
+  Template,
+  Parameter,
+  Table,
+  Field,
+  Enum,
+  i18n
 }
