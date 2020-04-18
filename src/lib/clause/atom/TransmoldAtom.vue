@@ -2,22 +2,21 @@
     <div>
         <div v-if="!instance" class="line">
             <plain :text="name + ':'"></plain>
-            <subject :variables="variables" :instances="instances" @alter="alterSubject"></subject>
-            <predicate :subject="subject" @alter="alterPredicate"></predicate>
+            <subject :variables="variables" :instances="instances" @alter="alterSubject" ref="subject"></subject>
+            <predicate :subject="subject" @alter="alterPredicate" ref="predicate"></predicate>
         </div>
         <div v-else class="line">
             <plain :text="name + ':'"></plain>
             <div class="seg" v-for="(i, index) in instance.getSegmentsDisplay()">
                 <subject v-if="index === instance.getFirstParamIndex()"
-                         :init="subject" :variables="variables" :instances="instances" @alter="alterSubject"></subject>
+                         :init="subject" :variables="variables" :instances="instances" @alter="alterSubject" ref="subject"></subject>
                 <div class="predicate-group" v-else-if="index === instance.getFirstTextIndex()">
                     <plain :text="instance.getFirstTextNeighbors('pre')" v-show="predicate"></plain>
-                    <predicate :init="predicate" :subject="subject" @alter="alterPredicate"></predicate>
+                    <predicate :init="predicate" :subject="subject" @alter="alterPredicate" ref="predicate"></predicate>
                     <plain :text="instance.getFirstTextNeighbors('post')" v-show="predicate"></plain>
                 </div>
-                <adverbial v-else-if="i.hasOwnProperty('value')" v-show="predicate"
-                           :parameter="i" :subject="subject"
-                           :variables="variables" :instances="instances" @alter="alterAdverbial"></adverbial>
+                <adverbial v-else-if="i.hasOwnProperty('value')" v-show="predicate" :parameter="i" :subject="subject"
+                           :variables="variables" :instances="instances" @alter="alterAdverbial" ref="adverbial"></adverbial>
                 <plain v-else-if="i.content !== null && i.content.trim() !== ''" v-show="predicate" :text="i.content.trim()"></plain>
             </div>
             <plain v-if="instance.isLegitimate()" symbol="right"></plain>
@@ -83,6 +82,26 @@
 
             alterAdverbial(adverbial, holder){
                 this.instance.setValue(holder, adverbial)
+            },
+
+            syncInstance(instance) {
+                let firstHolder = instance.template.getFirstParam().getHolder();
+                this.$refs.subject.syncSubject(instance.values[firstHolder].getValue())
+                this.$nextTick(() => {
+                    this.$refs.predicate.syncPredicate(instance.template);
+                    this.$nextTick(() => {
+                        for (let key in instance.values) {
+                            if (key !== firstHolder) {
+                                this.$nextTick(() => {
+                                    this.$nextTick(() => {
+                                        this.$refs.adverbial[0].syncAdverbial(instance.values[key].getValue())
+                                    })
+                                })
+
+                            }
+                        }
+                    })
+                });
             }
         },
 

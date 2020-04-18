@@ -97,6 +97,11 @@
 
             hideSwitch(){
                 this.onSwitch = false
+            },
+
+            syncAdverbial(val){
+                this.inputIndex = this.inputTypes.indexOf(Types.identifyInputType(val));
+                this.value = val;
             }
         },
 
@@ -104,6 +109,17 @@
 
             value(cur){
                 this.$emit('alter', cur, this.parameter.getHolder());
+            },
+
+            instances(cur){
+                if(Types.identifyInputType(this.value) === Types.INPUT.INSTANCE) {
+                    cur.forEach((i, index) => {
+                        if (i.getName() === this.value.getName() && i !== this.value){
+                            cur[index] = this.value
+
+                        }
+                    })
+                }
             }
         }
     }

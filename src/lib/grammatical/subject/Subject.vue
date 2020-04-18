@@ -76,6 +76,10 @@
 
             hideSwitch(){
                 this.onSwitch = false
+            },
+
+            syncSubject(val){
+                this.value = val;
             }
         },
 
@@ -86,6 +90,17 @@
                     this.doEmit = true;
                 }else {
                     this.$emit('alter', cur)
+                }
+            },
+
+            instances(cur){
+                if(Types.identifyInputType(this.value) === Types.INPUT.INSTANCE) {
+                    cur.forEach((i, index) => {
+                        if (i.getName() === this.value.getName() && i !== this.value){
+                            cur[index] = this.value
+
+                        }
+                    })
                 }
             }
         }

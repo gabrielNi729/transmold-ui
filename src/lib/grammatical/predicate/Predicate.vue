@@ -32,7 +32,9 @@
         },
 
         methods: {
-
+            syncPredicate(val){
+                this.value = val;
+            }
         },
 
         watch: {
