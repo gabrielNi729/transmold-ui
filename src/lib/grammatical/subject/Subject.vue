@@ -96,7 +96,7 @@
             instances(cur){
                 if(Types.identifyInputType(this.value) === Types.INPUT.INSTANCE) {
                     cur.forEach((i, index) => {
-                        if (i.getName() === this.value.getName() && i !== this.value){
+                        if (i.getName() === this.value.getName() && this.value.template.getName() === i.template.getName() && i !== this.value){
                             cur[index] = this.value
 
                         }
